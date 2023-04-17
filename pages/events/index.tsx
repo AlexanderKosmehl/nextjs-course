@@ -1,11 +1,12 @@
 import { useRouter } from 'next/router'
 import { EventList } from '../../components/Events/EventList/EventList'
 import EventSearch from '../../components/Events/EventSearch/EventSearch'
-import { useEffect, useState } from "react"
-import useSWR from "swr"
-import { fetcher, getAllEvents } from "../../services/fetcher"
-import { GetStaticProps } from "next"
-import { Event } from "../../types/Event"
+import { useEffect, useState } from 'react'
+import useSWR from 'swr'
+import { fetcher, getAllEvents } from '../../services/fetcher'
+import { GetStaticProps } from 'next'
+import { Event } from '../../types/Event'
+import Head from 'next/head'
 
 interface EventListPageProps {
   initialEvents: Event[]
@@ -30,8 +31,12 @@ export default function EventListPage({ initialEvents }: EventListPageProps) {
 
   return (
     <>
-      <EventSearch onSearch={findEventsHandler}/>
-      <EventList events={events}/>
+      <Head>
+        <title>NextJS Events</title>
+      </Head>
+
+      <EventSearch onSearch={findEventsHandler} />
+      <EventList events={events} />
     </>
   )
 }
@@ -41,8 +46,8 @@ export const getStaticProps: GetStaticProps = async (context) => {
 
   return {
     props: {
-      initialEvents
+      initialEvents,
     },
-    revalidate: 1800
+    revalidate: 1800,
   }
 }

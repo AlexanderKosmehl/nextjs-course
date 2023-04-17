@@ -1,11 +1,12 @@
 import { useRouter } from 'next/router'
-import EventSummary from "../../components/EventDetail/EventSummary/EventSummary"
-import EventLogistics from "../../components/EventDetail/EventLogistics/EventLogistics"
-import EventContent from "../../components/EventDetail/EventContent/EventContent"
-import { GetStaticPaths, GetStaticProps } from "next"
-import { getEventById, getFeaturedEvents } from "../../services/fetcher"
+import EventSummary from '../../components/EventDetail/EventSummary/EventSummary'
+import EventLogistics from '../../components/EventDetail/EventLogistics/EventLogistics'
+import EventContent from '../../components/EventDetail/EventContent/EventContent'
+import { GetStaticPaths, GetStaticProps } from 'next'
+import { getEventById, getFeaturedEvents } from '../../services/fetcher'
 
-import { Event } from "../../types/Event"
+import { Event } from '../../types/Event'
+import Head from 'next/head'
 
 interface EventDetailsPageProps {
   event: Event
@@ -14,16 +15,21 @@ interface EventDetailsPageProps {
 export default function EventDetailPage({ event }: EventDetailsPageProps) {
   const router = useRouter()
 
-  if (!event) return (
-    <div className='center'>
-      <p>Loading...</p>
-    </div>
-  )
+  if (!event)
+    return (
+      <div className="center">
+        <p>Loading...</p>
+      </div>
+    )
 
   return (
     <>
-      <EventSummary title={event.title}/>
-      <EventLogistics event={event}/>
+      <Head>
+        <title>{event.title}</title>
+        <meta name="description" content={event.description} />
+      </Head>
+      <EventSummary title={event.title} />
+      <EventLogistics event={event} />
       <EventContent>
         <p>{event.description}</p>
       </EventContent>
@@ -37,7 +43,7 @@ export const getStaticPaths: GetStaticPaths = async (context) => {
 
   return {
     paths,
-    fallback: true
+    fallback: true,
   }
 }
 
@@ -49,7 +55,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
 
   return {
     props: {
-      event
-    }
+      event,
+    },
   }
 }

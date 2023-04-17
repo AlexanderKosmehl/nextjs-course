@@ -4,6 +4,7 @@ import useSWR from 'swr'
 import { fetcher, getFeaturedEvents } from "../services/fetcher"
 import { GetStaticProps } from "next"
 import { Event } from "../types/Event"
+import Head from 'next/head'
 
 interface HomePageProps {
   initialEvents: Event[]
@@ -23,6 +24,11 @@ export default function HomePage({ initialEvents }: HomePageProps) {
 
   return (
     <div>
+      <Head>
+        <title>NextJS Events</title>
+        <meta name="description" content="Find a lot of great Events" />
+      </Head>
+
       <EventList events={featuredEvents}/>
     </div>
   )

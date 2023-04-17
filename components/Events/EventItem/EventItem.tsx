@@ -5,6 +5,7 @@ import DateIcon from '../../Icons/DateIcon'
 import AddressIcon from '../../Icons/AddressIcon'
 import ArrowRightIcon from '../../Icons/ArrowRightIcon'
 import { Event } from "../../../types/Event"
+import Image from 'next/image'
 
 interface EventItemProps {
   event: Event
@@ -19,7 +20,7 @@ export const EventItem = ({ event }: EventItemProps) => {
 
   return (
     <li className={styles.item}>
-      <img src={'/' + event.image} alt={event.title} />
+      <Image src={'/' + event.image} alt={event.title} width={250} height={160} />
       <div className={styles.content}>
         <div className={styles.summary}>
           <h2>{event.title}</h2>

@@ -3,9 +3,10 @@ import { EventList } from '../../components/Events/EventList/EventList'
 import ResultsTitle from '../../components/Events/ResultsTitle/ResultsTitle'
 import Button from '../../components/ui/Button/Button'
 import ErrorAlert from '../../components/ui/ErrorAlert/ErrorAlert'
-import { GetServerSideProps } from "next"
-import { Event } from "../../types/Event"
-import { getFilteredEvent } from "../../services/fetcher"
+import { GetServerSideProps } from 'next'
+import { Event } from '../../types/Event'
+import { getFilteredEvent } from '../../services/fetcher'
+import Head from 'next/head'
 
 interface FilteredEventPageProps {
   filteredEvents: Event[]
@@ -16,7 +17,11 @@ interface FilteredEventPageProps {
   }
 }
 
-export default function FilteredEventPage({ filteredEvents, hasError, filterSettings }: FilteredEventPageProps) {
+export default function FilteredEventPage({
+  filteredEvents,
+  hasError,
+  filterSettings,
+}: FilteredEventPageProps) {
   // if (!filteredEvents) {
   //   return <p className="center">Loading...</p>
   // }
@@ -24,6 +29,10 @@ export default function FilteredEventPage({ filteredEvents, hasError, filterSett
   if (hasError) {
     return (
       <>
+        <Head>
+          <title>Filtered Events</title>
+          <meta name="description" content="Invalid Filters" />
+        </Head>
         <ErrorAlert>Invalid filter. Please adjust your values!</ErrorAlert>
         <div className="center">
           <Button link="/events">Show All Events</Button>
@@ -35,6 +44,13 @@ export default function FilteredEventPage({ filteredEvents, hasError, filterSett
   if (!filteredEvents || filteredEvents.length === 0) {
     return (
       <>
+        <Head>
+          <title>Filtered Events</title>
+          <meta
+            name="description"
+            content={`All events for ${filterSettings.month}/${filterSettings.year}`}
+          />
+        </Head>
         <ErrorAlert>No results found for the selected filter</ErrorAlert>
         <div className="center">
           <Button link="/events">Show All Events</Button>
@@ -45,8 +61,17 @@ export default function FilteredEventPage({ filteredEvents, hasError, filterSett
 
   return (
     <div>
-      <ResultsTitle date={new Date(filterSettings.year, filterSettings.month)}/>
-      <EventList events={filteredEvents}/>
+      <Head>
+        <title>Filtered Events</title>
+        <meta
+          name="description"
+          content={`All events for ${filterSettings.month}/${filterSettings.year}`}
+        />
+      </Head>
+      <ResultsTitle
+        date={new Date(filterSettings.year, filterSettings.month)}
+      />
+      <EventList events={filteredEvents} />
     </div>
   )
 }
@@ -71,9 +96,9 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
         hasError: true,
         filterSettings: {
           year,
-          month
-        }
-      }
+          month,
+        },
+      },
     }
   }
 
@@ -85,8 +110,8 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       hasError: false,
       filterSettings: {
         year,
-        month
-      }
-    }
+        month,
+      },
+    },
   }
 }
