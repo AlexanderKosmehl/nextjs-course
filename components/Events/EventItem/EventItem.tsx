@@ -1,13 +1,13 @@
 import Link from 'next/link'
-import { DummyEvent } from '../../../data/dummy-data'
 import styles from './EventItem.module.css'
 import Button from '../../ui/Button/Button'
-import DateIcon from '../../icons/DateIcon'
-import AddressIcon from '../../icons/AddressIcon'
-import ArrowRightIcon from '../../icons/ArrowRightIcon'
+import DateIcon from '../../Icons/DateIcon'
+import AddressIcon from '../../Icons/AddressIcon'
+import ArrowRightIcon from '../../Icons/ArrowRightIcon'
+import { Event } from "../../../types/Event"
 
 interface EventItemProps {
-  event: DummyEvent
+  event: Event
 }
 
 export const EventItem = ({ event }: EventItemProps) => {

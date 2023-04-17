@@ -1,11 +1,11 @@
-import { DummyEvent } from '../../data/dummy-data'
-import AddressIcon from '../icons/AddressIcon'
-import DateIcon from '../icons/DateIcon'
-import LogisticsItem from './LogisticsItem'
-import classes from './EventLogistics.module.css'
+import styles from './EventLogistics.module.css'
+import AddressIcon from "../../Icons/AddressIcon"
+import DateIcon from "../../Icons/DateIcon"
+import LogisticsItem from "../LogisticsItem/LogisticsItem"
+import { Event } from "../../../types/Event"
 
 interface EventLogisticsProps {
-  event: DummyEvent
+  event: Event
 }
 
 export default function EventLogistics({ event }: EventLogisticsProps) {
@@ -19,15 +19,15 @@ export default function EventLogistics({ event }: EventLogisticsProps) {
   const addressText = event.location.replace(', ', '\n')
 
   return (
-    <section className={classes.logistics}>
-      <div className={classes.image}>
-        <img src={`/${event.image}`} alt={event.title} />
+    <section className={styles.logistics}>
+      <div className={styles.image}>
+        <img src={`/${event.image}`} alt={event.title}/>
       </div>
-      <ul className={classes.list}>
-        <LogisticsItem iconComponent={<DateIcon />}>
+      <ul className={styles.list}>
+        <LogisticsItem iconComponent={<DateIcon/>}>
           <time>{humanReadableDate}</time>
         </LogisticsItem>
-        <LogisticsItem iconComponent={<AddressIcon />}>
+        <LogisticsItem iconComponent={<AddressIcon/>}>
           <address>{addressText}</address>
         </LogisticsItem>
       </ul>
