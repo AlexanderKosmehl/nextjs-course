@@ -7,6 +7,7 @@ import { getEventById, getFeaturedEvents } from '../../services/fetcher'
 
 import { Event } from '../../types/Event'
 import Head from 'next/head'
+import { Comments } from '../../components/Input/Comments/Comments'
 
 interface EventDetailsPageProps {
   event: Event
@@ -33,6 +34,7 @@ export default function EventDetailPage({ event }: EventDetailsPageProps) {
       <EventContent>
         <p>{event.description}</p>
       </EventContent>
+      <Comments eventId={event.id} />
     </>
   )
 }

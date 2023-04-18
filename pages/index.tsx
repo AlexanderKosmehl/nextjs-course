@@ -5,6 +5,7 @@ import { fetcher, getFeaturedEvents } from "../services/fetcher"
 import { GetStaticProps } from "next"
 import { Event } from "../types/Event"
 import Head from 'next/head'
+import { NewsletterRegistration } from '../components/Input/NewsletterRegistration/NewsletterRegistration'
 
 interface HomePageProps {
   initialEvents: Event[]
@@ -28,7 +29,8 @@ export default function HomePage({ initialEvents }: HomePageProps) {
         <title>NextJS Events</title>
         <meta name="description" content="Find a lot of great Events" />
       </Head>
-
+      
+      <NewsletterRegistration />
       <EventList events={featuredEvents}/>
     </div>
   )
